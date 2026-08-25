@@ -1,0 +1,5230 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
+
+<title>Feedback EDU</title>
+
+<style>
+
+/* =========================
+   RESET
+========================= */
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f5f6fa;
+    color:#202536;
+}
+
+button{
+    border:none;
+    cursor:pointer;
+    font-family:inherit;
+}
+
+input,
+select,
+textarea{
+    font-family:inherit;
+}
+
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    bottom:0;
+    width:230px;
+    background:#171d2d;
+    color:white;
+    padding:25px 15px;
+    z-index:20;
+}
+
+.logo{
+    font-size:22px;
+    font-weight:bold;
+    margin-bottom:35px;
+}
+
+.logo span{
+    color:#6c63ff;
+}
+
+.menu button{
+    width:100%;
+    padding:13px;
+    margin-bottom:8px;
+    background:transparent;
+    color:#cbd0dc;
+    border-radius:9px;
+    text-align:left;
+}
+
+.menu button:hover,
+.menu button.active{
+    background:#6c63ff;
+    color:white;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.main{
+    margin-left:230px;
+    padding:30px;
+}
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    margin-bottom:25px;
+}
+
+.header h1{
+    font-size:28px;
+}
+
+.header p{
+    color:#7b8293;
+    margin-top:7px;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.btn{
+    background:#6c63ff;
+    color:white;
+    padding:11px 16px;
+    border-radius:9px;
+    font-weight:bold;
+}
+
+.btn.secondary{
+    background:#ecebff;
+    color:#554bd0;
+}
+
+.btn.danger{
+    background:#ffe5e5;
+    color:#d83c3c;
+}
+
+.btn.small{
+    padding:7px 10px;
+    font-size:12px;
+}
+
+
+/* =========================
+   CARDS
+========================= */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin-bottom:20px;
+}
+
+.card,
+.panel{
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 4px 15px rgba(0,0,0,.05);
+}
+
+.card small{
+    color:#7c8495;
+}
+
+.number{
+    font-size:30px;
+    font-weight:bold;
+    margin-top:8px;
+}
+
+
+/* =========================
+   GRID
+========================= */
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.person-card{
+    background:white;
+    border:1px solid #e7e9ef;
+    border-radius:14px;
+    padding:17px;
+}
+
+.person-card h3{
+    margin-bottom:8px;
+}
+
+.person-card p{
+    color:#737b8c;
+    margin:8px 0;
+}
+
+.actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+}
+
+.clickable{
+    cursor:pointer;
+}
+
+.clickable:hover{
+    color:#554bd0;
+}
+
+
+/* =========================
+   STATS
+========================= */
+
+.stats{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-top:12px;
+}
+
+.stat{
+    background:#f0efff;
+    color:#554bd0;
+    padding:8px 12px;
+    border-radius:9px;
+    font-size:13px;
+    font-weight:bold;
+}
+
+.stat.warning{
+    background:#fff0d8;
+    color:#b46a00;
+}
+
+.stat.danger{
+    background:#ffe5e5;
+    color:#d63b3b;
+}
+
+
+/* =========================
+   BADGES
+========================= */
+
+.badge{
+    background:#eeeeff;
+    color:#554bd0;
+    padding:5px 9px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+
+/* =========================
+   BREADCRUMB
+========================= */
+
+.back{
+    display:inline-block;
+    color:#554bd0;
+    font-weight:bold;
+    margin-bottom:18px;
+    cursor:pointer;
+}
+
+.breadcrumb{
+    color:#777f90;
+    margin-bottom:20px;
+}
+
+.breadcrumb b{
+    color:#554bd0;
+}
+
+
+/* =========================
+   TURMA
+========================= */
+
+.turma-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+}
+
+
+/* =========================
+   EMPTY
+========================= */
+
+.empty{
+    text-align:center;
+    color:#888f9f;
+    padding:35px 20px;
+}
+
+
+/* =========================
+   RANKING
+========================= */
+
+.ranking-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.ranking-card{
+    border:1px solid #e8eaf0;
+    border-radius:14px;
+    overflow:hidden;
+}
+
+.ranking-title{
+    padding:18px;
+    background:#fafaff;
+    border-bottom:1px solid #eee;
+}
+
+.rank-item{
+    display:flex;
+    align-items:center;
+    gap:13px;
+    padding:15px;
+    border-bottom:1px solid #eee;
+    cursor:pointer;
+}
+
+.rank-item:hover{
+    background:#fafaff;
+}
+
+.rank-position{
+    width:35px;
+    font-size:21px;
+    text-align:center;
+}
+
+.rank-info{
+    flex:1;
+}
+
+.rank-info b{
+    display:block;
+    margin-bottom:5px;
+}
+
+.rank-info small{
+    color:#7c8495;
+}
+
+.rank-score{
+    text-align:right;
+}
+
+.rank-score strong{
+    font-size:18px;
+}
+
+
+/* =========================
+   FEEDBACK
+========================= */
+
+.feedback{
+    border:1px solid #e8eaf0;
+    border-radius:12px;
+    padding:15px;
+    margin-bottom:10px;
+    background:white;
+}
+
+.feedback.reclamacao{
+    border-left:5px solid #e04444;
+}
+
+.feedback-top{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.nota-grande{
+    font-size:28px;
+    font-weight:bold;
+    margin:12px 0;
+}
+
+.reclamacao-box{
+    margin-top:12px;
+    padding:13px;
+    border-radius:10px;
+    background:#fff0f0;
+    color:#b52f2f;
+}
+
+.sugestao-box{
+    margin-top:10px;
+    padding:13px;
+    border-radius:10px;
+    background:#f3f1ff;
+    color:#5148c9;
+}
+
+.indicacao-box{
+    margin-top:10px;
+    padding:13px;
+    border-radius:10px;
+    background:#f5f6fa;
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.55);
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    z-index:100;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    background:white;
+    width:100%;
+    max-width:600px;
+    padding:22px;
+    border-radius:16px;
+    max-height:90vh;
+    overflow:auto;
+}
+
+.modal-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.close{
+    width:35px;
+    height:35px;
+    border-radius:50%;
+    background:#eee;
+    font-size:20px;
+}
+
+label{
+    display:block;
+    font-weight:bold;
+    font-size:13px;
+    margin-bottom:6px;
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    padding:11px;
+    border:1px solid #dfe2ea;
+    border-radius:9px;
+    outline:none;
+    background:white;
+}
+
+textarea{
+    min-height:110px;
+    resize:vertical;
+}
+
+.form-group{
+    margin-bottom:15px;
+}
+
+.modal-actions{
+    display:flex;
+    gap:10px;
+    margin-top:18px;
+}
+
+.info{
+    background:#f3f1ff;
+    color:#5148c9;
+    padding:13px;
+    border-radius:9px;
+    margin-bottom:15px;
+    font-size:13px;
+    line-height:1.5;
+}
+
+
+/* =========================
+   NOTAS
+========================= */
+
+.notas-grid{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:7px;
+}
+
+.nota-btn{
+    background:#ecebff;
+    color:#554bd0;
+    padding:11px;
+    border-radius:8px;
+    font-weight:bold;
+}
+
+.nota-btn.selected{
+    background:#6c63ff;
+    color:white;
+}
+
+
+/* =========================
+   RECLAMAÇÃO SIM/NÃO
+========================= */
+
+.reclamacao-opcoes{
+    display:flex;
+    gap:10px;
+}
+
+.reclamacao-btn{
+    flex:1;
+    padding:12px;
+    border-radius:9px;
+    background:#ecebff;
+    color:#554bd0;
+    font-weight:bold;
+}
+
+.reclamacao-btn.selected{
+    background:#6c63ff;
+    color:white;
+}
+
+.campo-reclamacao{
+    display:none;
+}
+
+.campo-reclamacao.show{
+    display:block;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:900px){
+
+    .cards{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+}
+
+@media(max-width:700px){
+
+    .sidebar{
+        width:65px;
+        padding:18px 7px;
+    }
+
+    .logo{
+        font-size:0;
+        text-align:center;
+    }
+
+    .logo span{
+        font-size:20px;
+    }
+
+    .menu button{
+        font-size:0;
+        text-align:center;
+    }
+
+    .menu button:nth-child(1)::before{
+        content:"⌂";
+        font-size:20px;
+    }
+
+    .menu button:nth-child(2)::before{
+        content:"👨‍🏫";
+        font-size:18px;
+    }
+
+    .menu button:nth-child(3)::before{
+        content:"👤";
+        font-size:18px;
+    }
+
+    .menu button:nth-child(4)::before{
+        content:"💬";
+        font-size:18px;
+    }
+
+    .main{
+        margin-left:65px;
+        padding:18px 12px;
+    }
+
+    .header{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .header h1{
+        font-size:23px;
+    }
+
+    .cards,
+    .grid,
+    .ranking-grid{
+        grid-template-columns:1fr;
+    }
+
+    .notas-grid{
+        grid-template-columns:repeat(5,1fr);
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     MENU
+========================= -->
+
+<aside class="sidebar">
+
+<div class="logo">
+Feedback <span>EDU</span>
+</div>
+
+<div class="menu">
+
+<button
+class="active"
+onclick="mostrarPagina('dashboard',this)"
+>
+Início
+</button>
+
+<button
+onclick="mostrarPagina('professores',this)"
+>
+Professores
+</button>
+
+<button
+onclick="mostrarPagina('alunos',this)"
+>
+Alunos
+</button>
+
+<button
+onclick="mostrarPagina('feedbacks',this)"
+>
+Feedbacks
+</button>
+
+</div>
+
+</aside>
+
+
+<main class="main">
+
+
+<!-- =========================
+     DASHBOARD
+========================= -->
+
+<section
+id="dashboard"
+class="page active"
+>
+
+<div class="header">
+
+<div>
+
+<h1>Olá! 👋</h1>
+
+<p>
+Visão geral das avaliações.
+</p>
+
+</div>
+
+<button
+class="btn"
+onclick="abrirNovoFeedback()"
+>
++ Novo feedback
+</button>
+
+</div>
+
+
+<div class="cards">
+
+<div class="card">
+
+<small>
+Professores
+</small>
+
+<div
+class="number"
+id="totalProfessores"
+>
+0
+</div>
+
+</div>
+
+
+<div class="card">
+
+<small>
+Turmas
+</small>
+
+<div
+class="number"
+id="totalTurmas"
+>
+0
+</div>
+
+</div>
+
+
+<div class="card">
+
+<small>
+Alunos
+</small>
+
+<div
+class="number"
+id="totalAlunos"
+>
+0
+</div>
+
+</div>
+
+
+<div class="card">
+
+<small>
+Feedbacks
+</small>
+
+<div
+class="number"
+id="totalFeedbacks"
+>
+0
+</div>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<small>
+Média geral
+</small>
+
+<div
+class="number"
+id="mediaGeral"
+>
+0,0
+</div>
+
+</div>
+
+
+<br>
+
+
+<div class="panel">
+
+<h2>
+🏆 Ranking dos professores
+</h2>
+
+<br>
+
+
+<div class="ranking-grid">
+
+
+<div class="ranking-card">
+
+<div class="ranking-title">
+
+<b>
+📊 Mais avaliados
+</b>
+
+</div>
+
+<div id="rankingQuantidade"></div>
+
+</div>
+
+
+<div class="ranking-card">
+
+<div class="ranking-title">
+
+<b>
+⭐ Melhor média
+</b>
+
+</div>
+
+<div id="rankingPositivo"></div>
+
+</div>
+
+
+<div class="ranking-card">
+
+<div class="ranking-title">
+
+<b>
+🚨 Mais reclamações
+</b>
+
+</div>
+
+<div id="rankingReclamacoes"></div>
+
+</div>
+
+
+<div class="ranking-card">
+
+<div class="ranking-title">
+
+<b>
+🟢 Menos reclamações
+</b>
+
+</div>
+
+<div id="rankingMenosReclamacoes"></div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================
+     PROFESSORES
+========================= -->
+
+<section
+id="professores"
+class="page"
+>
+
+<div class="header">
+
+<div>
+
+<h1>
+👨‍🏫 Professores
+</h1>
+
+<p>
+Selecione um professor para ver suas turmas.
+</p>
+
+</div>
+
+<button
+class="btn"
+onclick="abrirNovoProfessor()"
+>
++ Professor
+</button>
+
+</div>
+
+
+<div class="panel">
+
+<div
+id="listaProfessores"
+class="grid"
+></div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================
+     PROFESSOR DETALHES
+========================= -->
+
+<section
+id="professorDetalhes"
+class="page"
+>
+
+<div
+class="back"
+onclick="voltarProfessores()"
+>
+← Voltar para professores
+</div>
+
+
+<div class="breadcrumb">
+
+Professores /
+<b id="nomeProfessor"></b>
+
+</div>
+
+
+<div class="panel">
+
+<div class="header">
+
+<div>
+
+<h1 id="tituloProfessor"></h1>
+
+<div
+class="stats"
+id="statsProfessor"
+></div>
+
+</div>
+
+
+<button
+class="btn"
+onclick="abrirNovaTurma()"
+>
++ Adicionar turma
+</button>
+
+</div>
+
+</div>
+
+
+<div class="panel">
+
+<h2>
+📚 Turmas
+</h2>
+
+<br>
+
+<div
+id="listaTurmas"
+class="grid"
+></div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================
+     TURMA
+========================= -->
+
+<section
+id="turmaDetalhes"
+class="page"
+>
+
+<div
+class="back"
+onclick="voltarProfessor()"
+>
+← Voltar para professor
+</div>
+
+
+<div class="breadcrumb">
+
+Professor /
+<b id="turmaProfessorNome"></b>
+/
+<b id="turmaNome"></b>
+
+</div>
+
+
+<div class="panel">
+
+<div class="header">
+
+<div>
+
+<h1 id="tituloTurma"></h1>
+
+<div
+class="stats"
+id="statsTurma"
+></div>
+
+</div>
+
+
+<button
+class="btn"
+onclick="abrirNovoAlunoDaTurma()"
+>
++ Adicionar aluno
+</button>
+
+</div>
+
+</div>
+
+
+<div class="panel">
+
+<h2>
+👥 Alunos
+</h2>
+
+<br>
+
+<div
+id="listaAlunosTurma"
+class="grid"
+></div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================
+     ALUNO DETALHES
+========================= -->
+
+<section
+id="alunoDetalhes"
+class="page"
+>
+
+<div
+class="back"
+onclick="voltarTurma()"
+>
+← Voltar para turma
+</div>
+
+
+<div class="breadcrumb">
+
+Professor /
+<b id="alunoProfessorNome"></b>
+/
+<b id="alunoTurmaNome"></b>
+
+</div>
+
+
+<div class="panel">
+
+<div class="header">
+
+<div>
+
+<h1 id="tituloAluno"></h1>
+
+<div
+class="stats"
+id="statsAluno"
+></div>
+
+</div>
+
+
+<button
+class="btn"
+onclick="novoFeedbackAluno()"
+>
++ Novo feedback
+</button>
+
+</div>
+
+</div>
+
+
+<div class="panel">
+
+<h2>
+💬 Feedbacks
+</h2>
+
+<br>
+
+<div
+id="listaFeedbackAluno"
+></div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================
+     ALUNOS
+========================= -->
+
+<section
+id="alunos"
+class="page"
+>
+
+<div class="header">
+
+<div>
+
+<h1>
+👤 Alunos
+</h1>
+
+<p>
+Todos os alunos cadastrados.
+</p>
+
+</div>
+
+<button
+class="btn"
+onclick="abrirNovoAluno()"
+>
++ Aluno
+</button>
+
+</div>
+
+
+<div class="panel">
+
+<input
+id="pesquisaAluno"
+placeholder="🔎 Pesquisar aluno..."
+oninput="renderizarAlunos()"
+>
+
+<br><br>
+
+<div
+id="listaAlunos"
+class="grid"
+></div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================
+     FEEDBACKS
+========================= -->
+
+<section
+id="feedbacks"
+class="page"
+>
+
+<div class="header">
+
+<div>
+
+<h1>
+💬 Feedbacks
+</h1>
+
+<p>
+Todas as avaliações e reclamações.
+</p>
+
+</div>
+
+<button
+class="btn"
+onclick="abrirNovoFeedback()"
+>
++ Novo feedback
+</button>
+
+</div>
+
+
+<div class="panel">
+
+<div class="form-group">
+
+<label>
+Professor
+</label>
+
+<select
+id="filtroProfessor"
+onchange="renderizarFeedbacks()"
+>
+
+<option value="">
+Todos
+</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Aluno
+</label>
+
+<select
+id="filtroAluno"
+onchange="renderizarFeedbacks()"
+>
+
+<option value="">
+Todos
+</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Tipo
+</label>
+
+<select
+id="filtroTipo"
+onchange="renderizarFeedbacks()"
+>
+
+<option value="">
+Todos
+</option>
+
+<option value="reclamacao">
+🚨 Com reclamação
+</option>
+
+<option value="sem-reclamacao">
+🟢 Sem reclamação
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<br>
+
+
+<div class="panel">
+
+<div
+id="listaFeedbacks"
+></div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================
+     MODAL PROFESSOR
+========================= -->
+
+<div
+class="modal"
+id="modalProfessor"
+>
+
+<div class="modal-box">
+
+<div class="modal-top">
+
+<h2 id="tituloModalProfessor">
+Novo professor
+</h2>
+
+<button
+class="close"
+onclick="fecharModal('modalProfessor')"
+>
+×
+</button>
+
+</div>
+
+
+<input
+type="hidden"
+id="editarProfessorId"
+>
+
+
+<div class="form-group">
+
+<label>
+Nome do professor
+</label>
+
+<input
+id="nomeProfessorInput"
+placeholder="Ex.: Ana Paula"
+>
+
+</div>
+
+
+<div class="modal-actions">
+
+<button
+class="btn"
+onclick="salvarProfessor()"
+>
+Salvar
+</button>
+
+<button
+class="btn secondary"
+onclick="fecharModal('modalProfessor')"
+>
+Cancelar
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- =========================
+     MODAL TURMA
+========================= -->
+
+<div
+class="modal"
+id="modalTurma"
+>
+
+<div class="modal-box">
+
+<div class="modal-top">
+
+<h2 id="tituloModalTurma">
+Nova turma
+</h2>
+
+<button
+class="close"
+onclick="fecharModal('modalTurma')"
+>
+×
+</button>
+
+</div>
+
+
+<input
+type="hidden"
+id="turmaOriginal"
+>
+
+
+<div class="form-group">
+
+<label>
+Nome da turma
+</label>
+
+<input
+id="nomeTurmaInput"
+placeholder="Ex.: Turma A"
+>
+
+</div>
+
+
+<div class="info">
+
+Essa turma será criada dentro do professor selecionado.
+
+</div>
+
+
+<div class="modal-actions">
+
+<button
+class="btn"
+onclick="salvarTurma()"
+>
+Salvar turma
+</button>
+
+<button
+class="btn secondary"
+onclick="fecharModal('modalTurma')"
+>
+Cancelar
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- =========================
+     MODAL ALUNO
+========================= -->
+
+<div
+class="modal"
+id="modalAluno"
+>
+
+<div class="modal-box">
+
+<div class="modal-top">
+
+<h2 id="tituloModalAluno">
+Novo aluno
+</h2>
+
+<button
+class="close"
+onclick="fecharModal('modalAluno')"
+>
+×
+</button>
+
+</div>
+
+
+<input
+type="hidden"
+id="editarAlunoId"
+>
+
+
+<div class="form-group">
+
+<label>
+Nome do aluno
+</label>
+
+<input
+id="nomeAlunoInput"
+placeholder="Ex.: Maria Silva"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Professor
+</label>
+
+<select
+id="alunoProfessor"
+onchange="atualizarTurmasAluno()"
+></select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Turma
+</label>
+
+<select
+id="alunoTurma"
+></select>
+
+</div>
+
+
+<div class="modal-actions">
+
+<button
+class="btn"
+onclick="salvarAluno()"
+>
+Salvar aluno
+</button>
+
+<button
+class="btn secondary"
+onclick="fecharModal('modalAluno')"
+>
+Cancelar
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- =========================
+     MODAL FEEDBACK
+========================= -->
+
+<div
+class="modal"
+id="modalFeedback"
+>
+
+<div class="modal-box">
+
+
+<div class="modal-top">
+
+<h2>
+💬 Novo feedback
+</h2>
+
+<button
+class="close"
+onclick="fecharModal('modalFeedback')"
+>
+×
+</button>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Aluno
+</label>
+
+<select
+id="feedbackAluno"
+onchange="preencherDadosFeedback()"
+></select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Professor
+</label>
+
+<input
+id="feedbackProfessor"
+readonly
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Turma
+</label>
+
+<input
+id="feedbackTurma"
+readonly
+>
+
+</div>
+
+
+<div class="info">
+
+Olá, tudo bem? Me chamo Eloisa, sou auxiliar pedagógica aqui da Passaporte EDU e estou entrando em contato para conversar rapidinho com você sobre as aulas do seu filho(a).
+
+<br><br>
+
+Estamos realizando um acompanhamento para entender melhor a experiência dos alunos e também colher um feedback sobre as aulas e o professor <b id="feedbackProfessorTexto"></b>.
+
+<br><br>
+
+A conversa é bem rápida, pode ser?
+
+</div>
+
+
+<!-- NOTA -->
+
+<div class="form-group">
+
+<label>
+⭐ De 1 a 10, qual nota você daria para as aulas?
+</label>
+
+<div
+class="notas-grid"
+id="notasFeedback"
+></div>
+
+<input
+type="hidden"
+id="feedbackNota"
+>
+
+</div>
+
+
+<!-- RECLAMAÇÃO -->
+
+<div class="form-group">
+
+<label>
+🚨 Houve alguma reclamação?
+</label>
+
+
+<div class="reclamacao-opcoes">
+
+<button
+type="button"
+class="reclamacao-btn"
+id="btnReclamacaoNao"
+onclick="selecionarReclamacao(false)"
+>
+Não
+</button>
+
+
+<button
+type="button"
+class="reclamacao-btn"
+id="btnReclamacaoSim"
+onclick="selecionarReclamacao(true)"
+>
+Sim
+</button>
+
+</div>
+
+
+<input
+type="hidden"
+id="feedbackTemReclamacao"
+value="false"
+>
+
+</div>
+
+
+<div
+class="form-group campo-reclamacao"
+id="campoReclamacao"
+>
+
+<label>
+🚨 Qual foi a reclamação?
+</label>
+
+<textarea
+id="feedbackReclamacao"
+placeholder="Descreva a reclamação..."
+></textarea>
+
+</div>
+
+
+<!-- SUGESTÃO -->
+
+<div class="form-group">
+
+<label>
+💡 Você teria alguma sugestão para aprimorar as aulas ou a atuação do professor?
+</label>
+
+<textarea
+id="feedbackSugestao"
+placeholder="Digite uma sugestão, se houver..."
+></textarea>
+
+</div>
+
+
+<!-- INDICAÇÃO -->
+
+<div class="form-group">
+
+<label>
+🏫 Você indicaria a escola para outras pessoas? Por quê?
+</label>
+
+<textarea
+id="feedbackIndicacao"
+placeholder="Digite a resposta..."
+></textarea>
+
+</div>
+
+
+<div class="modal-actions">
+
+<button
+class="btn"
+onclick="salvarFeedback()"
+>
+Salvar feedback
+</button>
+
+<button
+class="btn secondary"
+onclick="fecharModal('modalFeedback')"
+>
+Cancelar
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<script>
+
+/* =====================================================
+   BANCO DE DADOS
+===================================================== */
+
+let professores =
+JSON.parse(
+    localStorage.getItem("FEEDBACK_PROFESSORES")
+) || [
+
+    {
+        id:1,
+        nome:"Ana Paula",
+        turmas:["Turma A","Turma B"]
+    },
+
+    {
+        id:2,
+        nome:"Carlos Henrique",
+        turmas:["Turma C"]
+    },
+
+    {
+        id:3,
+        nome:"Mariana Silva",
+        turmas:["Turma D"]
+    }
+
+];
+
+
+let alunos =
+JSON.parse(
+    localStorage.getItem("FEEDBACK_ALUNOS")
+) || [
+
+    {
+        id:1,
+        nome:"Maria Silva",
+        professorId:1,
+        turma:"Turma A"
+    },
+
+    {
+        id:2,
+        nome:"João Santos",
+        professorId:1,
+        turma:"Turma A"
+    },
+
+    {
+        id:3,
+        nome:"Pedro Lima",
+        professorId:2,
+        turma:"Turma C"
+    },
+
+    {
+        id:4,
+        nome:"Ana Clara",
+        professorId:3,
+        turma:"Turma D"
+    }
+
+];
+
+
+let feedbacks =
+JSON.parse(
+    localStorage.getItem("FEEDBACK_AVALIACOES")
+) || [];
+
+
+let professorAtual = null;
+
+let turmaAtual = null;
+
+let alunoAtual = null;
+
+
+/* =====================================================
+   SALVAR
+===================================================== */
+
+function salvarDados(){
+
+    localStorage.setItem(
+        "FEEDBACK_PROFESSORES",
+        JSON.stringify(professores)
+    );
+
+    localStorage.setItem(
+        "FEEDBACK_ALUNOS",
+        JSON.stringify(alunos)
+    );
+
+    localStorage.setItem(
+        "FEEDBACK_AVALIACOES",
+        JSON.stringify(feedbacks)
+    );
+
+}
+
+
+/* =====================================================
+   SEGURANÇA DE TEXTO
+===================================================== */
+
+function esc(texto){
+
+    return String(texto ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* =====================================================
+   MODAL
+===================================================== */
+
+function fecharModal(id){
+
+    document
+    .getElementById(id)
+    .classList
+    .remove("show");
+
+}
+
+
+/* =====================================================
+   NAVEGAÇÃO
+===================================================== */
+
+function mostrarPagina(id,botao){
+
+    document
+    .querySelectorAll(".page")
+    .forEach(
+        p => p.classList.remove("active")
+    );
+
+
+    document
+    .getElementById(id)
+    .classList
+    .add("active");
+
+
+    document
+    .querySelectorAll(".menu button")
+    .forEach(
+        b => b.classList.remove("active")
+    );
+
+
+    if(botao){
+
+        botao.classList.add("active");
+
+    }
+
+
+    renderizarTudo();
+
+}
+
+
+/* =====================================================
+   DASHBOARD
+===================================================== */
+
+function renderizarDashboard(){
+
+    document
+    .getElementById("totalProfessores")
+    .textContent =
+    professores.length;
+
+
+    let totalTurmas =
+    professores.reduce(
+        (total,p) =>
+        total + p.turmas.length,
+        0
+    );
+
+
+    document
+    .getElementById("totalTurmas")
+    .textContent =
+    totalTurmas;
+
+
+    document
+    .getElementById("totalAlunos")
+    .textContent =
+    alunos.length;
+
+
+    document
+    .getElementById("totalFeedbacks")
+    .textContent =
+    feedbacks.length;
+
+
+    let media = 0;
+
+
+    if(feedbacks.length){
+
+        media =
+        feedbacks.reduce(
+            (total,f) =>
+            total + Number(f.nota),
+            0
+        ) / feedbacks.length;
+
+    }
+
+
+    document
+    .getElementById("mediaGeral")
+    .textContent =
+    media
+    .toFixed(1)
+    .replace(".",",");
+
+
+    renderizarRanking();
+
+}
+
+
+/* =====================================================
+   DADOS DOS PROFESSORES
+===================================================== */
+
+function dadosProfessor(professor){
+
+    let fs =
+    feedbacks.filter(
+        f =>
+        f.professorId === professor.id
+    );
+
+
+    let reclamacoes =
+    fs.filter(
+        f => f.temReclamacao
+    ).length;
+
+
+    let media =
+    fs.length
+    ?
+    fs.reduce(
+        (total,f) =>
+        total + Number(f.nota),
+        0
+    ) / fs.length
+    :
+    0;
+
+
+    return {
+
+        professor:professor,
+
+        feedbacks:fs.length,
+
+        reclamacoes:reclamacoes,
+
+        media:media
+
+    };
+
+}
+
+
+/* =====================================================
+   RANKING
+===================================================== */
+
+function renderizarRanking(){
+
+    let dados =
+    professores.map(
+        p => dadosProfessor(p)
+    );
+
+
+    /* MAIS AVALIADOS */
+
+    let quantidade =
+    [...dados].sort(
+        (a,b) =>
+        b.feedbacks - a.feedbacks
+    );
+
+
+    document
+    .getElementById("rankingQuantidade")
+    .innerHTML =
+    criarRankingHTML(
+        quantidade,
+        item => item.feedbacks
+    );
+
+
+    /* MELHOR MÉDIA */
+
+    let melhorMedia =
+    [...dados]
+    .filter(
+        item =>
+        item.feedbacks > 0
+    )
+    .sort(
+        (a,b) =>
+        b.media - a.media
+    );
+
+
+    document
+    .getElementById("rankingPositivo")
+    .innerHTML =
+    melhorMedia.length
+    ?
+    criarRankingHTML(
+        melhorMedia,
+        item =>
+        item.media.toFixed(1) + "/10"
+    )
+    :
+    `<div class="empty">
+        Ainda não existem avaliações.
+    </div>`;
+
+
+    /* MAIS RECLAMAÇÕES */
+
+    let maisReclamacoes =
+    [...dados].sort(
+        (a,b) =>
+        b.reclamacoes - a.reclamacoes
+    );
+
+
+    document
+    .getElementById("rankingReclamacoes")
+    .innerHTML =
+    criarRankingHTML(
+        maisReclamacoes,
+        item =>
+        item.reclamacoes
+    );
+
+
+    /* MENOS RECLAMAÇÕES */
+
+    let menosReclamacoes =
+    [...dados]
+    .filter(
+        item =>
+        item.feedbacks > 0
+    )
+    .sort(
+        (a,b) =>
+        a.reclamacoes - b.reclamacoes
+    );
+
+
+    document
+    .getElementById("rankingMenosReclamacoes")
+    .innerHTML =
+    menosReclamacoes.length
+    ?
+    criarRankingHTML(
+        menosReclamacoes,
+        item =>
+        item.reclamacoes
+    )
+    :
+    `<div class="empty">
+        Ainda não existem avaliações.
+    </div>`;
+
+}
+
+
+function criarRankingHTML(lista,valor){
+
+    return lista.map(
+        (item,index) => `
+
+        <div
+        class="rank-item"
+        onclick="
+        abrirProfessorDetalhes(
+            ${item.professor.id}
+        )
+        "
+        >
+
+        <div class="rank-position">
+            ${index + 1}º
+        </div>
+
+
+        <div class="rank-info">
+
+            <b>
+                ${esc(item.professor.nome)}
+            </b>
+
+            <small>
+                ${item.feedbacks}
+                avaliação(ões)
+                ·
+                ${item.reclamacoes}
+                reclamação(ões)
+            </small>
+
+        </div>
+
+
+        <div class="rank-score">
+
+            <strong>
+                ${valor(item)}
+            </strong>
+
+        </div>
+
+        </div>
+
+        `
+    ).join("");
+
+}
+
+
+/* =====================================================
+   PROFESSORES
+===================================================== */
+
+function renderizarProfessores(){
+
+    let div =
+    document.getElementById(
+        "listaProfessores"
+    );
+
+
+    if(!professores.length){
+
+        div.innerHTML = `
+            <div class="empty">
+                Nenhum professor cadastrado.
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    div.innerHTML =
+    professores.map(
+        p => {
+
+            let dados =
+            dadosProfessor(p);
+
+
+            return `
+
+            <div class="person-card">
+
+                <div
+                class="clickable"
+                onclick="
+                abrirProfessorDetalhes(
+                    ${p.id}
+                )
+                "
+                >
+
+                    <div class="turma-header">
+
+                        <h3>
+                            👨‍🏫
+                            ${esc(p.nome)}
+                        </h3>
+
+                        <span>
+                            →
+                        </span>
+
+                    </div>
+
+
+                    <p>
+                        ${p.turmas.length}
+                        turma(s)
+                    </p>
+
+
+                    <div class="stats">
+
+                        <span class="stat">
+                            ⭐
+                            ${
+                                dados.feedbacks
+                                ?
+                                dados.media.toFixed(1)
+                                :
+                                "—"
+                            }
+                        </span>
+
+                        <span class="stat">
+                            💬
+                            ${dados.feedbacks}
+                        </span>
+
+                        <span class="stat danger">
+                            🚨
+                            ${dados.reclamacoes}
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <br>
+
+
+                <div class="actions">
+
+                    <button
+                    class="btn secondary small"
+                    onclick="
+                    event.stopPropagation();
+                    editarProfessor(${p.id})
+                    "
+                    >
+                        ✏️ Editar
+                    </button>
+
+
+                    <button
+                    class="btn danger small"
+                    onclick="
+                    event.stopPropagation();
+                    excluirProfessor(${p.id})
+                    "
+                    >
+                        🗑️ Excluir
+                    </button>
+
+                </div>
+
+            </div>
+
+            `;
+
+        }
+    ).join("");
+
+}
+
+
+/* =====================================================
+   ABRIR PROFESSOR
+===================================================== */
+
+function abrirProfessorDetalhes(id){
+
+    professorAtual = id;
+
+    turmaAtual = null;
+
+    alunoAtual = null;
+
+
+    document
+    .querySelectorAll(".page")
+    .forEach(
+        p => p.classList.remove("active")
+    );
+
+
+    document
+    .getElementById("professorDetalhes")
+    .classList
+    .add("active");
+
+
+    renderizarProfessorDetalhes();
+
+}
+
+
+function voltarProfessores(){
+
+    mostrarPagina(
+        "professores",
+        document.querySelectorAll(
+            ".menu button"
+        )[1]
+    );
+
+}
+
+
+/* =====================================================
+   PROFESSOR DETALHES
+===================================================== */
+
+function renderizarProfessorDetalhes(){
+
+    let p =
+    professores.find(
+        x =>
+        x.id === professorAtual
+    );
+
+
+    if(!p) return;
+
+
+    document
+    .getElementById("nomeProfessor")
+    .textContent =
+    p.nome;
+
+
+    document
+    .getElementById("tituloProfessor")
+    .textContent =
+    "👨‍🏫 " + p.nome;
+
+
+    let dados =
+    dadosProfessor(p);
+
+
+    let alunosProfessor =
+    alunos.filter(
+        a =>
+        a.professorId === p.id
+    );
+
+
+    document
+    .getElementById("statsProfessor")
+    .innerHTML = `
+
+        <span class="stat">
+            📚
+            ${p.turmas.length}
+            turma(s)
+        </span>
+
+        <span class="stat">
+            👥
+            ${alunosProfessor.length}
+            aluno(s)
+        </span>
+
+        <span class="stat">
+            💬
+            ${dados.feedbacks}
+            avaliação(ões)
+        </span>
+
+        <span class="stat">
+            ⭐
+            ${
+                dados.feedbacks
+                ?
+                dados.media.toFixed(1)
+                :
+                "—"
+            }/10
+        </span>
+
+        <span class="stat danger">
+            🚨
+            ${dados.reclamacoes}
+            reclamação(ões)
+        </span>
+
+    `;
+
+
+    let div =
+    document.getElementById(
+        "listaTurmas"
+    );
+
+
+    if(!p.turmas.length){
+
+        div.innerHTML = `
+
+            <div class="empty">
+
+                <h3>
+                    Nenhuma turma cadastrada.
+                </h3>
+
+                <br>
+
+                <button
+                class="btn"
+                onclick="abrirNovaTurma()"
+                >
+                    + Adicionar turma
+                </button>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    div.innerHTML =
+    p.turmas.map(
+        turma => {
+
+            let alunosTurma =
+            alunos.filter(
+                a =>
+                a.professorId === p.id &&
+                a.turma === turma
+            );
+
+
+            let feedbackTurma =
+            feedbacks.filter(
+                f =>
+                f.professorId === p.id &&
+                f.turma === turma
+            );
+
+
+            let reclamacoes =
+            feedbackTurma.filter(
+                f =>
+                f.temReclamacao
+            ).length;
+
+
+            return `
+
+            <div class="person-card">
+
+                <div
+                class="clickable"
+                onclick='
+                abrirTurma(
+                    ${JSON.stringify(turma)}
+                )
+                '
+                >
+
+                    <div class="turma-header">
+
+                        <h3>
+                            📚
+                            ${esc(turma)}
+                        </h3>
+
+                        <span>
+                            →
+                        </span>
+
+                    </div>
+
+
+                    <p>
+                        👥
+                        ${alunosTurma.length}
+                        aluno(s)
+                    </p>
+
+
+                    <p>
+                        💬
+                        ${feedbackTurma.length}
+                        avaliação(ões)
+                    </p>
+
+
+                    <div class="stats">
+
+                        <span class="stat">
+                            ⭐
+                            ${
+                                feedbackTurma.length
+                                ?
+                                (
+                                    feedbackTurma
+                                    .reduce(
+                                        (t,f) =>
+                                        t +
+                                        Number(f.nota),
+                                        0
+                                    )
+                                    /
+                                    feedbackTurma.length
+                                ).toFixed(1)
+                                :
+                                "—"
+                            }
+                        </span>
+
+                        <span class="stat danger">
+                            🚨
+                            ${reclamacoes}
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <br>
+
+
+                <div class="actions">
+
+                    <button
+                    class="btn secondary small"
+                    onclick='
+                    event.stopPropagation();
+                    editarTurma(
+                        ${JSON.stringify(turma)}
+                    )
+                    '
+                    >
+                        ✏️ Editar
+                    </button>
+
+
+                    <button
+                    class="btn danger small"
+                    onclick='
+                    event.stopPropagation();
+                    excluirTurma(
+                        ${JSON.stringify(turma)}
+                    )
+                    '
+                    >
+                        🗑️ Excluir
+                    </button>
+
+                </div>
+
+            </div>
+
+            `;
+
+        }
+    ).join("");
+
+}
+
+
+/* =====================================================
+   NOVA TURMA
+===================================================== */
+
+function abrirNovaTurma(){
+
+    document
+    .getElementById(
+        "tituloModalTurma"
+    )
+    .textContent =
+    "Nova turma";
+
+
+    document
+    .getElementById(
+        "turmaOriginal"
+    )
+    .value =
+    "";
+
+
+    document
+    .getElementById(
+        "nomeTurmaInput"
+    )
+    .value =
+    "";
+
+
+    document
+    .getElementById(
+        "modalTurma"
+    )
+    .classList
+    .add("show");
+
+}
+
+
+/* =====================================================
+   EDITAR TURMA
+===================================================== */
+
+function editarTurma(nome){
+
+    document
+    .getElementById(
+        "tituloModalTurma"
+    )
+    .textContent =
+    "Editar turma";
+
+
+    document
+    .getElementById(
+        "turmaOriginal"
+    )
+    .value =
+    nome;
+
+
+    document
+    .getElementById(
+        "nomeTurmaInput"
+    )
+    .value =
+    nome;
+
+
+    document
+    .getElementById(
+        "modalTurma"
+    )
+    .classList
+    .add("show");
+
+}
+
+
+/* =====================================================
+   SALVAR TURMA
+===================================================== */
+
+function salvarTurma(){
+
+    let p =
+    professores.find(
+        x =>
+        x.id === professorAtual
+    );
+
+
+    if(!p) return;
+
+
+    let nome =
+    document
+    .getElementById(
+        "nomeTurmaInput"
+    )
+    .value
+    .trim();
+
+
+    let original =
+    document
+    .getElementById(
+        "turmaOriginal"
+    )
+    .value;
+
+
+    if(!nome){
+
+        alert(
+            "Digite o nome da turma."
+        );
+
+        return;
+
+    }
+
+
+    if(
+        p.turmas.includes(nome) &&
+        nome !== original
+    ){
+
+        alert(
+            "Esse professor já possui uma turma com esse nome."
+        );
+
+        return;
+
+    }
+
+
+    if(original){
+
+        let indice =
+        p.turmas.indexOf(
+            original
+        );
+
+
+        if(indice !== -1){
+
+            p.turmas[indice] =
+            nome;
+
+        }
+
+
+        alunos
+        .filter(
+            a =>
+            a.professorId === p.id &&
+            a.turma === original
+        )
+        .forEach(
+            a =>
+            a.turma = nome
+        );
+
+
+        feedbacks
+        .filter(
+            f =>
+            f.professorId === p.id &&
+            f.turma === original
+        )
+        .forEach(
+            f =>
+            f.turma = nome
+        );
+
+
+        if(turmaAtual === original){
+
+            turmaAtual = nome;
+
+        }
+
+    }
+    else{
+
+        p.turmas.push(nome);
+
+    }
+
+
+    salvarDados();
+
+    fecharModal(
+        "modalTurma"
+    );
+
+    renderizarTudo();
+
+    renderizarProfessorDetalhes();
+
+}
+
+
+/* =====================================================
+   EXCLUIR TURMA
+===================================================== */
+
+function excluirTurma(nome){
+
+    let p =
+    professores.find(
+        x =>
+        x.id === professorAtual
+    );
+
+
+    if(!p) return;
+
+
+    let alunosDaTurma =
+    alunos.filter(
+        a =>
+        a.professorId === p.id &&
+        a.turma === nome
+    );
+
+
+    if(alunosDaTurma.length){
+
+        alert(
+            "Essa turma possui alunos. Transfira ou exclua os alunos antes de excluir a turma."
+        );
+
+        return;
+
+    }
+
+
+    if(
+        !confirm(
+            `Deseja excluir a turma "${nome}"?`
+        )
+    ){
+
+        return;
+
+    }
+
+
+    p.turmas =
+    p.turmas.filter(
+        t =>
+        t !== nome
+    );
+
+
+    salvarDados();
+
+    renderizarTudo();
+
+    renderizarProfessorDetalhes();
+
+}
+
+
+/* =====================================================
+   ABRIR TURMA
+===================================================== */
+
+function abrirTurma(nome){
+
+    turmaAtual = nome;
+
+
+    document
+    .querySelectorAll(".page")
+    .forEach(
+        p =>
+        p.classList.remove("active")
+    );
+
+
+    document
+    .getElementById(
+        "turmaDetalhes"
+    )
+    .classList
+    .add("active");
+
+
+    renderizarTurmaDetalhes();
+
+}
+
+
+function voltarProfessor(){
+
+    abrirProfessorDetalhes(
+        professorAtual
+    );
+
+}
+
+
+/* =====================================================
+   TURMA DETALHES
+===================================================== */
+
+function renderizarTurmaDetalhes(){
+
+    let p =
+    professores.find(
+        x =>
+        x.id === professorAtual
+    );
+
+
+    if(!p) return;
+
+
+    document
+    .getElementById(
+        "turmaProfessorNome"
+    )
+    .textContent =
+    p.nome;
+
+
+    document
+    .getElementById(
+        "turmaNome"
+    )
+    .textContent =
+    turmaAtual;
+
+
+    document
+    .getElementById(
+        "tituloTurma"
+    )
+    .textContent =
+    "📚 " + turmaAtual;
+
+
+    let listaAlunos =
+    alunos.filter(
+        a =>
+        a.professorId === p.id &&
+        a.turma === turmaAtual
+    );
+
+
+    let listaFeedback =
+    feedbacks.filter(
+        f =>
+        f.professorId === p.id &&
+        f.turma === turmaAtual
+    );
+
+
+    let reclamacoes =
+    listaFeedback.filter(
+        f =>
+        f.temReclamacao
+    ).length;
+
+
+    let media =
+    listaFeedback.length
+    ?
+    listaFeedback.reduce(
+        (total,f) =>
+        total + Number(f.nota),
+        0
+    )
+    /
+    listaFeedback.length
+    :
+    0;
+
+
+    document
+    .getElementById(
+        "statsTurma"
+    )
+    .innerHTML = `
+
+        <span class="stat">
+            👥
+            ${listaAlunos.length}
+            alunos
+        </span>
+
+        <span class="stat">
+            💬
+            ${listaFeedback.length}
+            feedbacks
+        </span>
+
+        <span class="stat">
+            ⭐
+            ${media.toFixed(1)}/10
+        </span>
+
+        <span class="stat danger">
+            🚨
+            ${reclamacoes}
+            reclamações
+        </span>
+
+    `;
+
+
+    let div =
+    document.getElementById(
+        "listaAlunosTurma"
+    );
+
+
+    if(!listaAlunos.length){
+
+        div.innerHTML = `
+
+            <div class="empty">
+
+                <h3>
+                    Nenhum aluno nesta turma.
+                </h3>
+
+                <br>
+
+                <button
+                class="btn"
+                onclick="abrirNovoAlunoDaTurma()"
+                >
+                    + Adicionar aluno
+                </button>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    div.innerHTML =
+    listaAlunos.map(
+        a => {
+
+            let fs =
+            feedbacks.filter(
+                f =>
+                f.alunoId === a.id
+            );
+
+
+            let mediaAluno =
+            fs.length
+            ?
+            fs.reduce(
+                (total,f) =>
+                total + Number(f.nota),
+                0
+            )
+            /
+            fs.length
+            :
+            0;
+
+
+            let reclamacoes =
+            fs.filter(
+                f =>
+                f.temReclamacao
+            ).length;
+
+
+            return `
+
+            <div class="person-card">
+
+                <div
+                class="clickable"
+                onclick="
+                abrirAlunoDetalhes(
+                    ${a.id}
+                )
+                "
+                >
+
+                    <div class="turma-header">
+
+                        <h3>
+                            👤
+                            ${esc(a.nome)}
+                        </h3>
+
+                        <span>
+                            →
+                        </span>
+
+                    </div>
+
+
+                    <p>
+                        ${fs.length}
+                        feedback(s)
+                    </p>
+
+
+                    <div class="stats">
+
+                        <span class="stat">
+                            ⭐
+                            ${
+                                fs.length
+                                ?
+                                mediaAluno.toFixed(1)
+                                :
+                                "—"
+                            }/10
+                        </span>
+
+                        <span class="stat danger">
+                            🚨
+                            ${reclamacoes}
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <br>
+
+
+                <div class="actions">
+
+                    <button
+                    class="btn secondary small"
+                    onclick="
+                    event.stopPropagation();
+                    editarAluno(${a.id})
+                    "
+                    >
+                        ✏️ Editar
+                    </button>
+
+
+                    <button
+                    class="btn danger small"
+                    onclick="
+                    event.stopPropagation();
+                    excluirAluno(${a.id})
+                    "
+                    >
+                        🗑️ Excluir
+                    </button>
+
+                </div>
+
+            </div>
+
+            `;
+
+        }
+    ).join("");
+
+}
+
+
+/* =====================================================
+   ALUNO
+===================================================== */
+
+function abrirNovoAlunoDaTurma(){
+
+    abrirNovoAluno();
+
+
+    document
+    .getElementById(
+        "alunoProfessor"
+    )
+    .value =
+    professorAtual;
+
+
+    atualizarTurmasAluno();
+
+
+    document
+    .getElementById(
+        "alunoTurma"
+    )
+    .value =
+    turmaAtual;
+
+}
+
+
+function abrirNovoAluno(){
+
+    document
+    .getElementById(
+        "tituloModalAluno"
+    )
+    .textContent =
+    "Novo aluno";
+
+
+    document
+    .getElementById(
+        "editarAlunoId"
+    )
+    .value =
+    "";
+
+
+    document
+    .getElementById(
+        "nomeAlunoInput"
+    )
+    .value =
+    "";
+
+
+    let select =
+    document.getElementById(
+        "alunoProfessor"
+    );
+
+
+    select.innerHTML =
+    professores.map(
+        p =>
+        `
+        <option value="${p.id}">
+            ${esc(p.nome)}
+        </option>
+        `
+    ).join("");
+
+
+    if(professorAtual){
+
+        select.value =
+        professorAtual;
+
+    }
+
+
+    atualizarTurmasAluno();
+
+
+    document
+    .getElementById(
+        "modalAluno"
+    )
+    .classList
+    .add("show");
+
+}
+
+
+function atualizarTurmasAluno(){
+
+    let pid =
+    Number(
+        document
+        .getElementById(
+            "alunoProfessor"
+        )
+        .value
+    );
+
+
+    let p =
+    professores.find(
+        x =>
+        x.id === pid
+    );
+
+
+    let select =
+    document.getElementById(
+        "alunoTurma"
+    );
+
+
+    if(!p){
+
+        select.innerHTML =
+        "";
+
+        return;
+
+    }
+
+
+    select.innerHTML =
+    p.turmas.map(
+        t =>
+        `
+        <option value="${esc(t)}">
+            ${esc(t)}
+        </option>
+        `
+    ).join("");
+
+}
+
+
+/* =====================================================
+   SALVAR ALUNO
+===================================================== */
+
+function salvarAluno(){
+
+    let nome =
+    document
+    .getElementById(
+        "nomeAlunoInput"
+    )
+    .value
+    .trim();
+
+
+    let professorId =
+    Number(
+        document
+        .getElementById(
+            "alunoProfessor"
+        )
+        .value
+    );
+
+
+    let turma =
+    document
+    .getElementById(
+        "alunoTurma"
+    )
+    .value;
+
+
+    let id =
+    document
+    .getElementById(
+        "editarAlunoId"
+    )
+    .value;
+
+
+    if(
+        !nome ||
+        !professorId ||
+        !turma
+    ){
+
+        alert(
+            "Preencha nome, professor e turma."
+        );
+
+        return;
+
+    }
+
+
+    if(id){
+
+        let aluno =
+        alunos.find(
+            a =>
+            a.id == id
+        );
+
+
+        if(aluno){
+
+            aluno.nome =
+            nome;
+
+            aluno.professorId =
+            professorId;
+
+            aluno.turma =
+            turma;
+
+        }
+
+    }
+    else{
+
+        alunos.push({
+
+            id:Date.now(),
+
+            nome:nome,
+
+            professorId:
+            professorId,
+
+            turma:turma
+
+        });
+
+    }
+
+
+    salvarDados();
+
+    fecharModal(
+        "modalAluno"
+    );
+
+    renderizarTudo();
+
+
+    if(
+        document
+        .getElementById(
+            "turmaDetalhes"
+        )
+        .classList
+        .contains("active")
+    ){
+
+        renderizarTurmaDetalhes();
+
+    }
+
+}
+
+
+/* =====================================================
+   EDITAR ALUNO
+===================================================== */
+
+function editarAluno(id){
+
+    let aluno =
+    alunos.find(
+        a =>
+        a.id === id
+    );
+
+
+    if(!aluno) return;
+
+
+    document
+    .getElementById(
+        "tituloModalAluno"
+    )
+    .textContent =
+    "Editar aluno";
+
+
+    document
+    .getElementById(
+        "editarAlunoId"
+    )
+    .value =
+    id;
+
+
+    document
+    .getElementById(
+        "nomeAlunoInput"
+    )
+    .value =
+    aluno.nome;
+
+
+    let select =
+    document.getElementById(
+        "alunoProfessor"
+    );
+
+
+    select.innerHTML =
+    professores.map(
+        p =>
+        `
+        <option value="${p.id}">
+            ${esc(p.nome)}
+        </option>
+        `
+    ).join("");
+
+
+    select.value =
+    aluno.professorId;
+
+
+    atualizarTurmasAluno();
+
+
+    document
+    .getElementById(
+        "alunoTurma"
+    )
+    .value =
+    aluno.turma;
+
+
+    document
+    .getElementById(
+        "modalAluno"
+    )
+    .classList
+    .add("show");
+
+}
+
+
+/* =====================================================
+   EXCLUIR ALUNO
+===================================================== */
+
+function excluirAluno(id){
+
+    let aluno =
+    alunos.find(
+        a =>
+        a.id === id
+    );
+
+
+    if(!aluno) return;
+
+
+    if(
+        !confirm(
+            `Excluir o aluno "${aluno.nome}"?\n\nOs feedbacks desse aluno também serão excluídos.`
+        )
+    ){
+
+        return;
+
+    }
+
+
+    alunos =
+    alunos.filter(
+        a =>
+        a.id !== id
+    );
+
+
+    feedbacks =
+    feedbacks.filter(
+        f =>
+        f.alunoId !== id
+    );
+
+
+    salvarDados();
+
+    renderizarTudo();
+
+
+    if(
+        document
+        .getElementById(
+            "turmaDetalhes"
+        )
+        .classList
+        .contains("active")
+    ){
+
+        renderizarTurmaDetalhes();
+
+    }
+
+}
+
+
+/* =====================================================
+   LISTA GERAL DE ALUNOS
+===================================================== */
+
+function renderizarAlunos(){
+
+    let div =
+    document.getElementById(
+        "listaAlunos"
+    );
+
+
+    let busca =
+    (
+        document
+        .getElementById(
+            "pesquisaAluno"
+        )
+        ?.value
+        ||
+        ""
+    )
+    .toLowerCase();
+
+
+    let resultado =
+    alunos.filter(
+        a =>
+        a.nome
+        .toLowerCase()
+        .includes(busca)
+    );
+
+
+    if(!resultado.length){
+
+        div.innerHTML = `
+            <div class="empty">
+                Nenhum aluno encontrado.
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    div.innerHTML =
+    resultado.map(
+        a => {
+
+            let p =
+            professores.find(
+                x =>
+                x.id === a.professorId
+            );
+
+
+            let fs =
+            feedbacks.filter(
+                f =>
+                f.alunoId === a.id
+            );
+
+
+            let reclamacoes =
+            fs.filter(
+                f =>
+                f.temReclamacao
+            ).length;
+
+
+            return `
+
+            <div class="person-card">
+
+                <div
+                class="clickable"
+                onclick="
+                abrirAlunoDetalhes(
+                    ${a.id}
+                )
+                "
+                >
+
+                    <h3>
+                        👤
+                        ${esc(a.nome)}
+                    </h3>
+
+
+                    <p>
+                        👨‍🏫
+                        ${esc(p?.nome || "")}
+                    </p>
+
+
+                    <p>
+                        📚
+                        ${esc(a.turma)}
+                    </p>
+
+
+                    <div class="stats">
+
+                        <span class="stat">
+                            💬
+                            ${fs.length}
+                        </span>
+
+                        <span class="stat">
+                            ⭐
+                            ${
+                                fs.length
+                                ?
+                                (
+                                    fs.reduce(
+                                        (t,f) =>
+                                        t +
+                                        Number(f.nota),
+                                        0
+                                    )
+                                    /
+                                    fs.length
+                                ).toFixed(1)
+                                :
+                                "—"
+                            }
+                        </span>
+
+                        <span class="stat danger">
+                            🚨
+                            ${reclamacoes}
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <br>
+
+
+                <div class="actions">
+
+                    <button
+                    class="btn secondary small"
+                    onclick="
+                    editarAluno(${a.id})
+                    "
+                    >
+                        ✏️ Editar
+                    </button>
+
+
+                    <button
+                    class="btn danger small"
+                    onclick="
+                    excluirAluno(${a.id})
+                    "
+                    >
+                        🗑️ Excluir
+                    </button>
+
+                </div>
+
+            </div>
+
+            `;
+
+        }
+    ).join("");
+
+}
+
+
+/* =====================================================
+   DETALHES ALUNO
+===================================================== */
+
+function abrirAlunoDetalhes(id){
+
+    alunoAtual = id;
+
+
+    document
+    .querySelectorAll(".page")
+    .forEach(
+        p =>
+        p.classList.remove("active")
+    );
+
+
+    document
+    .getElementById(
+        "alunoDetalhes"
+    )
+    .classList
+    .add("active");
+
+
+    renderizarAlunoDetalhes();
+
+}
+
+
+function renderizarAlunoDetalhes(){
+
+    let aluno =
+    alunos.find(
+        a =>
+        a.id === alunoAtual
+    );
+
+
+    if(!aluno) return;
+
+
+    let professor =
+    professores.find(
+        p =>
+        p.id === aluno.professorId
+    );
+
+
+    document
+    .getElementById(
+        "alunoProfessorNome"
+    )
+    .textContent =
+    professor?.nome || "";
+
+
+    document
+    .getElementById(
+        "alunoTurmaNome"
+    )
+    .textContent =
+    aluno.turma;
+
+
+    document
+    .getElementById(
+        "tituloAluno"
+    )
+    .textContent =
+    "👤 " + aluno.nome;
+
+
+    let fs =
+    feedbacks.filter(
+        f =>
+        f.alunoId === aluno.id
+    );
+
+
+    let reclamacoes =
+    fs.filter(
+        f =>
+        f.temReclamacao
+    ).length;
+
+
+    let media =
+    fs.length
+    ?
+    fs.reduce(
+        (total,f) =>
+        total + Number(f.nota),
+        0
+    )
+    /
+    fs.length
+    :
+    0;
+
+
+    document
+    .getElementById(
+        "statsAluno"
+    )
+    .innerHTML = `
+
+        <span class="stat">
+            👨‍🏫
+            ${esc(professor?.nome || "")}
+        </span>
+
+        <span class="stat">
+            📚
+            ${esc(aluno.turma)}
+        </span>
+
+        <span class="stat">
+            💬
+            ${fs.length}
+            feedbacks
+        </span>
+
+        <span class="stat">
+            ⭐
+            ${fs.length ? media.toFixed(1) : "—"}/10
+        </span>
+
+        <span class="stat danger">
+            🚨
+            ${reclamacoes}
+            reclamações
+        </span>
+
+    `;
+
+
+    let div =
+    document.getElementById(
+        "listaFeedbackAluno"
+    );
+
+
+    if(!fs.length){
+
+        div.innerHTML = `
+            <div class="empty">
+                Este aluno ainda não possui feedbacks.
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    div.innerHTML =
+    fs
+    .slice()
+    .reverse()
+    .map(
+        f =>
+        criarCardFeedback(f)
+    )
+    .join("");
+
+}
+
+
+function voltarTurma(){
+
+    abrirTurma(
+        turmaAtual
+    );
+
+}
+
+
+/* =====================================================
+   ABRIR FEEDBACK
+===================================================== */
+
+function criarBotoesNota(){
+
+    let div =
+    document.getElementById(
+        "notasFeedback"
+    );
+
+
+    div.innerHTML =
+    "";
+
+
+    for(
+        let i = 1;
+        i <= 10;
+        i++
+    ){
+
+        let button =
+        document.createElement(
+            "button"
+        );
+
+
+        button.type =
+        "button";
+
+
+        button.textContent =
+        i;
+
+
+        button.className =
+        "nota-btn";
+
+
+        button.onclick =
+        function(){
+
+            document
+            .getElementById(
+                "feedbackNota"
+            )
+            .value =
+            i;
+
+
+            document
+            .querySelectorAll(
+                "#notasFeedback .nota-btn"
+            )
+            .forEach(
+                b =>
+                b.classList
+                .remove("selected")
+            );
+
+
+            button
+            .classList
+            .add("selected");
+
+        };
+
+
+        div.appendChild(
+            button
+        );
+
+    }
+
+}
+
+
+function abrirNovoFeedback(){
+
+    if(!alunos.length){
+
+        alert(
+            "Cadastre um aluno primeiro."
+        );
+
+        return;
+
+    }
+
+
+    let select =
+    document.getElementById(
+        "feedbackAluno"
+    );
+
+
+    select.innerHTML =
+    alunos.map(
+        a =>
+        `
+        <option value="${a.id}">
+            ${esc(a.nome)}
+            —
+            ${esc(a.turma)}
+        </option>
+        `
+    ).join("");
+
+
+    document
+    .getElementById(
+        "feedbackNota"
+    )
+    .value =
+    "";
+
+
+    document
+    .getElementById(
+        "feedbackReclamacao"
+    )
+    .value =
+    "";
+
+
+    document
+    .getElementById(
+        "feedbackSugestao"
+    )
+    .value =
+    "";
+
+
+    document
+    .getElementById(
+        "feedbackIndicacao"
+    )
+    .value =
+    "";
+
+
+    document
+    .getElementById(
+        "feedbackTemReclamacao"
+    )
+    .value =
+    "false";
+
+
+    document
+    .getElementById(
+        "campoReclamacao"
+    )
+    .classList
+    .remove("show");
+
+
+    criarBotoesNota();
+
+
+    selecionarReclamacao(
+        false
+    );
+
+
+    preencherDadosFeedback();
+
+
+    document
+    .getElementById(
+        "modalFeedback"
+    )
+    .classList
+    .add("show");
+
+}
+
+
+function novoFeedbackAluno(){
+
+    abrirNovoFeedback();
+
+
+    document
+    .getElementById(
+        "feedbackAluno"
+    )
+    .value =
+    alunoAtual;
+
+
+    preencherDadosFeedback();
+
+}
+
+
+/* =====================================================
+   DADOS DO FEEDBACK
+===================================================== */
+
+function preencherDadosFeedback(){
+
+    let aluno =
+    alunos.find(
+        a =>
+        a.id === Number(
+            document
+            .getElementById(
+                "feedbackAluno"
+            )
+            .value
+        )
+    );
+
+
+    if(!aluno) return;
+
+
+    let professor =
+    professores.find(
+        p =>
+        p.id === aluno.professorId
+    );
+
+
+    document
+    .getElementById(
+        "feedbackProfessor"
+    )
+    .value =
+    professor?.nome || "";
+
+
+    document
+    .getElementById(
+        "feedbackTurma"
+    )
+    .value =
+    aluno.turma;
+
+
+    document
+    .getElementById(
+        "feedbackProfessorTexto"
+    )
+    .textContent =
+    professor?.nome || "";
+
+}
+
+
+/* =====================================================
+   RECLAMAÇÃO
+===================================================== */
+
+function selecionarReclamacao(valor){
+
+    document
+    .getElementById(
+        "feedbackTemReclamacao"
+    )
+    .value =
+    valor
+    ?
+    "true"
+    :
+    "false";
+
+
+    let campo =
+    document.getElementById(
+        "campoReclamacao"
+    );
+
+
+    if(valor){
+
+        campo
+        .classList
+        .add("show");
+
+    }
+    else{
+
+        campo
+        .classList
+        .remove("show");
+
+    }
+
+
+    let nao =
+    document.getElementById(
+        "btnReclamacaoNao"
+    );
+
+
+    let sim =
+    document.getElementById(
+        "btnReclamacaoSim"
+    );
+
+
+    nao
+    .classList
+    .toggle(
+        "selected",
+        !valor
+    );
+
+
+    sim
+    .classList
+    .toggle(
+        "selected",
+        valor
+    );
+
+}
+
+
+/* =====================================================
+   SALVAR FEEDBACK
+===================================================== */
+
+function salvarFeedback(){
+
+    let aluno =
+    alunos.find(
+        a =>
+        a.id === Number(
+            document
+            .getElementById(
+                "feedbackAluno"
+            )
+            .value
+        )
+    );
+
+
+    if(!aluno){
+
+        alert(
+            "Selecione um aluno."
+        );
+
+        return;
+
+    }
+
+
+    let professor =
+    professores.find(
+        p =>
+        p.id === aluno.professorId
+    );
+
+
+    if(!professor){
+
+        alert(
+            "Professor não encontrado."
+        );
+
+        return;
+
+    }
+
+
+    let nota =
+    Number(
+        document
+        .getElementById(
+            "feedbackNota"
+        )
+        .value
+    );
+
+
+    if(
+        isNaN(nota) ||
+        nota < 1 ||
+        nota > 10
+    ){
+
+        alert(
+            "Escolha uma nota de 1 a 10."
+        );
+
+        return;
+
+    }
+
+
+    let temReclamacao =
+    document
+    .getElementById(
+        "feedbackTemReclamacao"
+    )
+    .value === "true";
+
+
+    let reclamacao =
+    document
+    .getElementById(
+        "feedbackReclamacao"
+    )
+    .value
+    .trim();
+
+
+    if(
+        temReclamacao &&
+        !reclamacao
+    ){
+
+        alert(
+            "Descreva a reclamação."
+        );
+
+        return;
+
+    }
+
+
+    let sugestao =
+    document
+    .getElementById(
+        "feedbackSugestao"
+    )
+    .value
+    .trim();
+
+
+    let indicacao =
+    document
+    .getElementById(
+        "feedbackIndicacao"
+    )
+    .value
+    .trim();
+
+
+    feedbacks.push({
+
+        id:Date.now(),
+
+        alunoId:
+        aluno.id,
+
+        aluno:
+        aluno.nome,
+
+        professorId:
+        professor.id,
+
+        professor:
+        professor.nome,
+
+        turma:
+        aluno.turma,
+
+        nota:
+        nota,
+
+        temReclamacao:
+        temReclamacao,
+
+        reclamacao:
+        reclamacao,
+
+        sugestao:
+        sugestao,
+
+        indicacao:
+        indicacao,
+
+        data:
+        new Date()
+        .toLocaleDateString(
+            "pt-BR"
+        )
+
+    });
+
+
+    salvarDados();
+
+
+    fecharModal(
+        "modalFeedback"
+    );
+
+
+    renderizarTudo();
+
+
+    if(
+        document
+        .getElementById(
+            "alunoDetalhes"
+        )
+        .classList
+        .contains("active")
+    ){
+
+        renderizarAlunoDetalhes();
+
+    }
+
+}
+
+
+/* =====================================================
+   CARD DE FEEDBACK
+===================================================== */
+
+function criarCardFeedback(f){
+
+    let reclamacaoHTML =
+    "";
+
+
+    if(f.temReclamacao){
+
+        reclamacaoHTML = `
+
+            <div
+            class="reclamacao-box"
+            >
+
+                <b>
+                    🚨 RECLAMAÇÃO
+                </b>
+
+                <br><br>
+
+                ${esc(
+                    f.reclamacao ||
+                    "Reclamação registrada."
+                )}
+
+            </div>
+
+        `;
+
+    }
+
+
+    let sugestaoHTML =
+    "";
+
+
+    if(f.sugestao){
+
+        sugestaoHTML = `
+
+            <div
+            class="sugestao-box"
+            >
+
+                <b>
+                    💡 Sugestão
+                </b>
+
+                <br><br>
+
+                ${esc(
+                    f.sugestao
+                )}
+
+            </div>
+
+        `;
+
+    }
+
+
+    let indicacaoHTML =
+    "";
+
+
+    if(f.indicacao){
+
+        indicacaoHTML = `
+
+            <div
+            class="indicacao-box"
+            >
+
+                <b>
+                    🏫 Indicação da escola
+                </b>
+
+                <br><br>
+
+                ${esc(
+                    f.indicacao
+                )}
+
+            </div>
+
+        `;
+
+    }
+
+
+    return `
+
+        <div
+        class="
+        feedback
+        ${f.temReclamacao
+            ? "reclamacao"
+            : ""
+        }
+        "
+        >
+
+            <div class="feedback-top">
+
+                <div>
+
+                    <b>
+                        👤
+                        ${esc(f.aluno)}
+                    </b>
+
+                    <br>
+
+                    <small>
+                        👨‍🏫
+                        ${esc(f.professor)}
+
+                        ·
+
+                        📚
+                        ${esc(f.turma)}
+                    </small>
+
+                </div>
+
+
+                <span class="badge">
+
+                    ${f.nota}/10
+
+                </span>
+
+            </div>
+
+
+            <div class="nota-grande">
+
+                ⭐
+                ${f.nota}/10
+
+            </div>
+
+
+            ${reclamacaoHTML}
+
+            ${sugestaoHTML}
+
+            ${indicacaoHTML}
+
+
+            <br>
+
+
+            <small>
+                ${f.data || ""}
+            </small>
+
+
+            <br><br>
+
+
+            <button
+            class="btn danger small"
+            onclick="
+            excluirFeedback(
+                ${f.id}
+            )
+            "
+            >
+
+                🗑️ Excluir
+
+            </button>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   LISTA DE FEEDBACKS
+===================================================== */
+
+function atualizarFiltros(){
+
+    let fp =
+    document.getElementById(
+        "filtroProfessor"
+    );
+
+
+    if(fp){
+
+        let valor =
+        fp.value;
+
+
+        fp.innerHTML =
+        `
+        <option value="">
+            Todos os professores
+        </option>
+        `
+
+        +
+
+        professores.map(
+            p =>
+            `
+            <option value="${p.id}">
+                ${esc(p.nome)}
+            </option>
+            `
+        ).join("");
+
+
+        fp.value =
+        valor;
+
+    }
+
+
+    let fa =
+    document.getElementById(
+        "filtroAluno"
+    );
+
+
+    if(fa){
+
+        let valor =
+        fa.value;
+
+
+        fa.innerHTML =
+        `
+        <option value="">
+            Todos os alunos
+        </option>
+        `
+
+        +
+
+        alunos.map(
+            a =>
+            `
+            <option value="${a.id}">
+                ${esc(a.nome)}
+            </option>
+            `
+        ).join("");
+
+
+        fa.value =
+        valor;
+
+    }
+
+}
+
+
+function renderizarFeedbacks(){
+
+    let filtroProfessor =
+    document
+    .getElementById(
+        "filtroProfessor"
+    )
+    ?.value
+    ||
+    "";
+
+
+    let filtroAluno =
+    document
+    .getElementById(
+        "filtroAluno"
+    )
+    ?.value
+    ||
+    "";
+
+
+    let filtroTipo =
+    document
+    .getElementById(
+        "filtroTipo"
+    )
+    ?.value
+    ||
+    "";
+
+
+    let resultado =
+    feedbacks.filter(
+        f => {
+
+            if(
+                filtroProfessor &&
+                String(
+                    f.professorId
+                ) !==
+                filtroProfessor
+            ){
+
+                return false;
+
+            }
+
+
+            if(
+                filtroAluno &&
+                String(
+                    f.alunoId
+                ) !==
+                filtroAluno
+            ){
+
+                return false;
+
+            }
+
+
+            if(
+                filtroTipo ===
+                "reclamacao" &&
+                !f.temReclamacao
+            ){
+
+                return false;
+
+            }
+
+
+            if(
+                filtroTipo ===
+                "sem-reclamacao" &&
+                f.temReclamacao
+            ){
+
+                return false;
+
+            }
+
+
+            return true;
+
+        }
+    );
+
+
+    let div =
+    document.getElementById(
+        "listaFeedbacks"
+    );
+
+
+    if(!resultado.length){
+
+        div.innerHTML = `
+
+            <div class="empty">
+
+                Nenhum feedback encontrado.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    div.innerHTML =
+    resultado
+    .slice()
+    .reverse()
+    .map(
+        f =>
+        criarCardFeedback(f)
+    )
+    .join("");
+
+}
+
+
+/* =====================================================
+   EXCLUIR FEEDBACK
+===================================================== */
+
+function excluirFeedback(id){
+
+    if(
+        !confirm(
+            "Excluir este feedback?"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    feedbacks =
+    feedbacks.filter(
+        f =>
+        f.id !== id
+    );
+
+
+    salvarDados();
+
+    renderizarTudo();
+
+
+    if(
+        document
+        .getElementById(
+            "alunoDetalhes"
+        )
+        .classList
+        .contains("active")
+    ){
+
+        renderizarAlunoDetalhes();
+
+    }
+
+}
+
+
+/* =====================================================
+   PROFESSOR CRUD
+===================================================== */
+
+function abrirNovoProfessor(){
+
+    document
+    .getElementById(
+        "tituloModalProfessor"
+    )
+    .textContent =
+    "Novo professor";
+
+
+    document
+    .getElementById(
+        "editarProfessorId"
+    )
+    .value =
+    "";
+
+
+    document
+    .getElementById(
+        "nomeProfessorInput"
+    )
+    .value =
+    "";
+
+
+    document
+    .getElementById(
+        "modalProfessor"
+    )
+    .classList
+    .add("show");
+
+}
+
+
+function editarProfessor(id){
+
+    let professor =
+    professores.find(
+        p =>
+        p.id === id
+    );
+
+
+    if(!professor) return;
+
+
+    document
+    .getElementById(
+        "tituloModalProfessor"
+    )
+    .textContent =
+    "Editar professor";
+
+
+    document
+    .getElementById(
+        "editarProfessorId"
+    )
+    .value =
+    id;
+
+
+    document
+    .getElementById(
+        "nomeProfessorInput"
+    )
+    .value =
+    professor.nome;
+
+
+    document
+    .getElementById(
+        "modalProfessor"
+    )
+    .classList
+    .add("show");
+
+}
+
+
+function salvarProfessor(){
+
+    let nome =
+    document
+    .getElementById(
+        "nomeProfessorInput"
+    )
+    .value
+    .trim();
+
+
+    let id =
+    document
+    .getElementById(
+        "editarProfessorId"
+    )
+    .value;
+
+
+    if(!nome){
+
+        alert(
+            "Digite o nome do professor."
+        );
+
+        return;
+
+    }
+
+
+    if(id){
+
+        let professor =
+        professores.find(
+            p =>
+            p.id == id
+        );
+
+
+        if(professor){
+
+            professor.nome =
+            nome;
+
+        }
+
+    }
+    else{
+
+        professores.push({
+
+            id:Date.now(),
+
+            nome:nome,
+
+            turmas:[]
+
+        });
+
+    }
+
+
+    salvarDados();
+
+    fecharModal(
+        "modalProfessor"
+    );
+
+    renderizarTudo();
+
+}
+
+
+function excluirProfessor(id){
+
+    let professor =
+    professores.find(
+        p =>
+        p.id === id
+    );
+
+
+    if(!professor) return;
+
+
+    let possuiAlunos =
+    alunos.some(
+        a =>
+        a.professorId === id
+    );
+
+
+    if(possuiAlunos){
+
+        alert(
+            "Não é possível excluir este professor enquanto ele possuir alunos."
+        );
+
+        return;
+
+    }
+
+
+    if(
+        !confirm(
+            `Excluir o professor "${professor.nome}"?`
+        )
+    ){
+
+        return;
+
+    }
+
+
+    professores =
+    professores.filter(
+        p =>
+        p.id !== id
+    );
+
+
+    salvarDados();
+
+    renderizarTudo();
+
+}
+
+
+/* =====================================================
+   RENDERIZAR TUDO
+===================================================== */
+
+function renderizarTudo(){
+
+    renderizarDashboard();
+
+    renderizarProfessores();
+
+    renderizarAlunos();
+
+    atualizarFiltros();
+
+    renderizarFeedbacks();
+
+}
+
+
+/* =====================================================
+   INICIALIZAÇÃO
+===================================================== */
+
+renderizarTudo();
+
+</script>
+
+</body>
+
+</html>
